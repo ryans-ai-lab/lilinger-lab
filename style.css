@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
 @media(max-width:760px){.character-intro{display:block}.intro-copy{font-size:15px;line-height:1.85}.intro-links{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px 22px;max-width:none;margin-top:18px;font-size:13px}.character-note{margin-top:20px}.model-detail{margin-top:7px}}
+
+#canvas-host{position:relative}#model-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;z-index:1}#model-poster[hidden]{display:none}#download-view{margin-left:12px}#model-error{z-index:3}

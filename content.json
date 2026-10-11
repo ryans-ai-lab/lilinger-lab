@@ -346,17 +346,26 @@
   "model": {
     "sourceBytes": 369015736,
     "variants": {
+      "mobile": {
+        "file": "models/lilinger-mobile-20261011.glb",
+        "label": "快速版",
+        "bytes": 8026592,
+        "triangles": 1084123,
+        "sha256": "7e1aea03ca0386d0c8bf4dd99e4d41ba90b039de4bfffbd98253ab478934ac1d"
+      },
       "web": {
         "file": "models/lilinger-web.glb",
-        "label": "网页轻量版",
+        "label": "标准版",
         "bytes": 14810068,
-        "triangles": 1382952
+        "triangles": 1382952,
+        "sha256": "313683f5b9a029e64d76c9aa17ceec50ac28d94b3270bcabbefb7445a303ab34"
       },
       "detail": {
         "file": "models/lilinger-detail.glb",
         "label": "细节版",
         "bytes": 21623052,
-        "triangles": 2468997
+        "triangles": 2468997,
+        "sha256": "02eb83fcd9f0e41de774eb4b98cf6d9c57a031ef4c92eb082eeb1e308fa2ee7c"
       }
     },
     "hairPolicy": "保留全部发束，沿发丝长度减少面数；非毛发原面保留。"
