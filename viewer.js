@@ -57,3 +57,5 @@ export async function restoreParameters(value){
 }
 let transparentDownload;
 $('#save-view').onclick=()=>{if(!model)return;const link=$('#download-view'),data=captureTransparent().split(',')[1],binary=atob(data),bytes=Uint8Array.from(binary,character=>character.charCodeAt(0));if(transparentDownload)URL.revokeObjectURL(transparentDownload);transparentDownload=URL.createObjectURL(new Blob([bytes],{type:'image/png'}));link.href=transparentDownload;link.hidden=false;link.click()};
+
+export function selectView(view){if(!['front','face','back','side'].includes(view))throw new Error('人物视角不正确');position(view)}

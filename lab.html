@@ -4,19 +4,20 @@
 <body class="workbench">
 <header class="header"><a class="lab-logo" href="index.html">李灵儿实验台</a><nav aria-label="实验导航"><a href="index.html#character">观察角色</a><a href="https://ryanlab.cn/">Ryan Lab</a></nav></header>
 <main>
-<div class="lab-heading"><h1>试出新的用法</h1><p>把角色、现场图片和资料重新组合，做成其他项目能继续取用的东西。</p></div>
+<div class="lab-heading"><h1>重新取景</h1><p>让资料、影像与李灵儿，找到新的关系。</p></div>
 <div class="experiment-tabs" role="tablist" aria-label="实验类型"><button id="tab-compose" role="tab" aria-selected="true" aria-controls="pane-compose" data-mode="compose">讲解卡</button><button id="tab-guide" role="tab" aria-selected="false" aria-controls="pane-guide" data-mode="guide" tabindex="-1">资料路径</button><button id="tab-assets" role="tab" aria-selected="false" aria-controls="pane-assets" data-mode="assets" tabindex="-1">素材取用</button></div>
 <section id="pane-compose" role="tabpanel" aria-labelledby="tab-compose">
-<div class="experiment-intro"><h2>让人物进入一张讲解卡</h2><p>适合工艺导览、培训或内容取景。选一份资料，调整构图，再导出图片。</p></div>
+<div class="experiment-intro compose-intro"><h2>讲解卡工作台</h2><p>选择资料与版式，预览成品。</p></div>
 <div class="compose-workspace">
 <div class="compose-output"><div id="poster-wrap" data-ratio="landscape"><canvas id="poster" width="1920" height="1080" role="img" aria-label="李灵儿讲解卡合成预览"></canvas></div><p id="compose-status" role="status">正在准备人物和资料…</p><div class="export-actions"><button id="export-poster" class="solid-button" disabled>导出 PNG</button><button id="export-layout" disabled>导出构图参数</button><button id="import-layout" disabled>导入构图参数</button><input id="layout-input" type="file" accept=".json,application/json" hidden><a id="poster-download" hidden download="lilinger-card.png">下载讲解卡</a><a id="layout-download" hidden download="lilinger-layout.json">下载构图参数</a></div></div>
 <div class="compose-controls">
-<div class="preset-row" aria-label="使用场景"><button data-preset="factory" aria-pressed="true">数字酒厂</button><button data-preset="training" aria-pressed="false">培训图文</button><button data-preset="storyboard" aria-pressed="false">内容取景</button></div>
+<div class="preset-row" aria-label="使用场景"><button data-preset="factory" aria-pressed="true">工艺导览</button><button data-preset="training" aria-pressed="false">培训展签</button><button data-preset="storyboard" aria-pressed="false">内容取景</button></div>
+<label>版式<select id="poster-style"><option value="immersive">沉浸导览</option><option value="gallery">资料展签</option></select></label>
 <label>画面比例<select id="poster-ratio"><option value="landscape">横版 16:9</option><option value="portrait">竖版 9:16</option><option value="square">方版 1:1</option></select></label>
 <label>资料主题<select id="poster-topic"></select></label><label>讲解内容<select id="poster-answer"></select></label>
-<label>人物位置<select id="subject-side"><option value="right">靠右</option><option value="left">靠左</option></select></label>
-<label>人物占比 <output id="subject-size-label">76%</output><input id="subject-size" type="range" min="45" max="88" value="76" step="1"></label>
-<label>照片裁切 <output id="photo-focus-label">50%</output><input id="photo-focus" type="range" min="0" max="100" value="50" step="1"></label>
+<label>讲述区位置<select id="subject-side"><option value="right">右侧</option><option value="left">左侧</option></select></label>
+<label>人物近景 <output id="subject-size-label">76%</output><input id="subject-size" type="range" min="45" max="88" value="76" step="1"></label>
+<label>沉浸版照片裁切 <output id="photo-focus-label">50%</output><input id="photo-focus" type="range" min="0" max="100" value="50" step="1"></label>
 <details class="source-disclosure"><summary>本张使用的内容与出处</summary><p id="poster-answer-full"></p><p id="poster-citation"></p><p id="poster-photo-relation"></p></details>
 <a id="poster-project" class="text-link" href="https://ryanlab.cn/tyd/#craft">进入对应项目</a>
 </div></div>

@@ -1,3 +1,4 @@
+import {drawPoster, posterDesignVersion} from './poster-design.js';
 const $ = selector => document.querySelector(selector);
 const element = (tag, text, className) => {
   const node = document.createElement(tag);
@@ -33,6 +34,7 @@ let captureGeneration = 0;
 let posterGeneration = 0;
 let posterReady = false;
 let preset = 'factory';
+let initialPortrait = true;
 const imageCache = new Map();
 const downloads = new Map();
 
@@ -99,29 +101,6 @@ function shortExcerpt(answer) {
   const match = answer.answer.match(/^.*?[。！？]/);
   return match ? match[0] : answer.answer;
 }
-function wrapText(context, text, x, y, width, lineHeight, maximum = Infinity) {
-  let line = '', lines = [];
-  for (const character of text) {
-    if (context.measureText(line + character).width > width && line) { lines.push(line); line = character; }
-    else line += character;
-  }
-  if (line) lines.push(line);
-  if (lines.length > maximum) {
-    lines = lines.slice(0, maximum);
-    let final = lines[maximum - 1];
-    while (final && context.measureText(final + '…').width > width) final = final.slice(0, -1);
-    lines[maximum - 1] = final + '…';
-  }
-  lines.forEach((value, index) => context.fillText(value, x, y + index * lineHeight));
-  return y + lines.length * lineHeight;
-}
-function cover(context, picture, x, y, width, height, focus) {
-  const factor = Math.max(width / picture.width, height / picture.height);
-  const sourceWidth = width / factor, sourceHeight = height / factor;
-  const sourceX = (picture.width - sourceWidth) * focus;
-  const sourceY = (picture.height - sourceHeight) * focus;
-  context.drawImage(picture, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
-}
 function trimSubject(picture) {
   const canvas = document.createElement('canvas');
   canvas.width = picture.width; canvas.height = picture.height;
@@ -158,7 +137,11 @@ document.addEventListener('lilinger:model-loading', () => {
   $('#export-poster').disabled = $('#export-layout').disabled = $('#import-layout').disabled = $('#use-camera').disabled = true;
   $('#compose-status').textContent = '正在载入人物，资料图片可以先看。';
 });
-document.addEventListener('lilinger:model-ready', () => captureSubject());
+document.addEventListener('lilinger:model-ready', async () => {
+  const module=await ensureViewer();
+  if(initialPortrait){initialPortrait=false;module.selectView('face');}
+  captureSubject();
+});
 document.addEventListener('lilinger:model-error', () => {
   captureGeneration++;
   posterReady=false;
@@ -171,13 +154,13 @@ function composeParameters() {
   const topic = topicById($('#poster-topic').value);
   const answer = answerById($('#poster-answer').value);
   return {
-    type:'lilinger-composition', version:2, sourceVersion:catalog.publicVersion, preset, ratio:$('#poster-ratio').value,
+    type:'lilinger-composition', version:3, designVersion:posterDesignVersion, visualStyle:$('#poster-style').value, sourceVersion:catalog.publicVersion, preset, ratio:$('#poster-ratio').value,
     subjectSide:$('#subject-side').value, subjectPercent:Number($('#subject-size').value),
     photoFocusPercent:Number($('#photo-focus').value), model:capturedModel,
     modelFile:capturedModel ? content.model.variants[capturedModel.quality].file : null,
     modelSha256:capturedModel ? content.model.variants[capturedModel.quality].sha256 : null,
     image:{file:topic.image,sha256:catalog.assets.find(asset=>asset.file===topic.image).sha256,source:photoRelation(answer,topic)},
-    text:{id:answer.id,question:answer.question,excerpt:shortExcerpt(answer),citation:citation(answer)},
+    text:{id:answer.id,question:answer.question,answer:answer.answer,excerpt:shortExcerpt(answer),citation:citation(answer)},
     composite:true, note:'静态角色与历史配图合成，不证明人物到场或当前厂区现状。'
   };
 }
@@ -189,6 +172,8 @@ async function renderPoster() {
   const answer = answerById($('#poster-answer').value);
   if (!topic || !answer) return;
   const ratio = $('#poster-ratio').value;
+  $('#photo-focus').disabled=$('#poster-style').value==='gallery';
+  $('#photo-focus').closest('label').title=$('#poster-style').value==='gallery'?'展签版完整显示原图，无需裁切':'';
   const sizes = {landscape:[1920,1080],portrait:[1080,1920],square:[1600,1600]};
   const [width,height] = sizes[ratio];
   const canvas = $('#poster');
@@ -205,45 +190,7 @@ async function renderPoster() {
     const picture = await image(topic.image);
     if (token !== posterGeneration) return;
     const context = canvas.getContext('2d');
-    const portrait = ratio === 'portrait';
-    const left = $('#subject-side').value === 'left';
-    context.fillStyle = '#eff2ed'; context.fillRect(0,0,width,height);
-    cover(context,picture,0,0,width,height,Number($('#photo-focus').value)/100);
-    const gradient = context.createLinearGradient(left ? width : 0,0,left ? 0 : width,0);
-    gradient.addColorStop(0,'rgba(251,251,248,.96)');
-    gradient.addColorStop(portrait ? .72 : .58,'rgba(251,251,248,.91)');
-    gradient.addColorStop(1,'rgba(251,251,248,.1)');
-    context.fillStyle = gradient; context.fillRect(0,0,width,height);
-    const margin = portrait ? 72 : 96;
-    const textX = left && !portrait ? width * .48 : margin;
-    const textWidth = portrait ? width - margin*2 : width * .44;
-    context.textBaseline = 'top';
-    context.fillStyle = '#174782';
-    context.font = '500 ' + (portrait ? 36 : 34) + 'px "PingFang SC",sans-serif';
-    context.fillText('李灵儿 · ' + ({factory:'数字酒厂导览',training:'工艺讲解',storyboard:'内容取景'})[preset],textX,margin);
-    context.fillStyle = '#172d3b';
-    context.font = '600 ' + (portrait ? 78 : 82) + 'px "Songti SC",SimSun,serif';
-    const titleBottom = wrapText(context,answer.question,textX,margin+72,textWidth,portrait?100:104,3);
-    context.font = '400 ' + (portrait ? 48 : 48) + 'px "PingFang SC",sans-serif';
-    const textBottom = wrapText(context,shortExcerpt(answer),textX,titleBottom+30,textWidth,72,portrait?6:5);
-    context.fillStyle = '#ad9053'; context.fillRect(textX,margin+55,95,5);
-    if (subject) {
-      const targetHeight = Math.min(height * Number($('#subject-size').value)/100,portrait ? height-textBottom-270 : height-230);
-      const maximumWidth = portrait ? width*.72 : width*.48;
-      const factor = Math.min(targetHeight/subject.height,maximumWidth/subject.width);
-      const subjectWidth = subject.width*factor, subjectHeight = subject.height*factor;
-      const x = left ? margin*.4 : width-subjectWidth-margin*.25;
-      const y = height-subjectHeight-190;
-      context.save(); context.shadowColor='rgba(23,45,59,.14)'; context.shadowBlur=14;
-      context.drawImage(subject,x,y,subjectWidth,subjectHeight); context.restore();
-    }
-    context.fillStyle = 'rgba(251,251,248,.97)';context.fillRect(0,height-160,width,160);
-    context.fillStyle = '#172d3b';context.font='500 27px "PingFang SC",sans-serif';
-    context.fillText('合成实验 · 静态角色与历史资料配图',margin,height-140);
-    context.fillStyle = '#626f75';context.font='400 23px "PingFang SC",sans-serif';
-    wrapText(context,'正文：'+answer.sourceTitle+' '+answer.reference,margin,height-103,width-margin*2,29,1);
-    wrapText(context,'配图：'+topic.title+' · '+topic.sourceTitle+' '+topic.question+(answer.id==='jiuhai'?' · 陶坛仅作主题参照':''),margin,height-70,width-margin*2,29,1);
-    context.fillText('2024年资料摘编 · 配图拍摄日期未核实 · 实验版本 '+catalog.publicVersion,margin,height-37);
+    drawPoster(context,{width,height,picture,subject,answer,topic,excerpt:shortExcerpt(answer),style:$('#poster-style').value,side:$('#subject-side').value,percent:Number($('#subject-size').value),focus:Number($('#photo-focus').value)/100});
     canvas.setAttribute('aria-label',answer.question+'，李灵儿与'+topic.title+'的合成实验预览');
     posterReady = Boolean(subject) && $('#viewer').dataset.ready === 'true' && $('#viewer').dataset.loading !== 'true';
     $('#export-poster').disabled = $('#export-layout').disabled = $('#import-layout').disabled = !posterReady;
@@ -253,19 +200,19 @@ async function renderPoster() {
   } catch (error) { if(token===posterGeneration) $('#compose-status').textContent=error.message+'，可以换一个主题或重新取景。'; }
 }
 $('#poster-topic').onchange = () => { updateAnswerOptions();renderPoster(); };
-for (const id of ['poster-answer','poster-ratio','subject-side','subject-size','photo-focus']) {
+for (const id of ['poster-answer','poster-style','poster-ratio','subject-side','subject-size','photo-focus']) {
   $('#' + id).addEventListener(id==='subject-size'||id==='photo-focus'?'input':'change',renderPoster);
 }
 const presets = {
-  factory:{topic:'campus',ratio:'landscape',side:'right',size:76},
-  training:{topic:'qu',ratio:'portrait',side:'right',size:52},
-  storyboard:{topic:'storage',ratio:'landscape',side:'left',size:70}
+  factory:{topic:'grain',ratio:'landscape',side:'right',size:60,style:'immersive'},
+  training:{topic:'qu',ratio:'square',side:'right',size:60,style:'gallery'},
+  storyboard:{topic:'storage',ratio:'landscape',side:'left',size:60,style:'immersive'}
 };
 function applyPreset(name) {
   preset = name;
   const values = presets[name];
   $('#poster-topic').value = values.topic;updateAnswerOptions();
-  $('#poster-ratio').value=values.ratio;$('#subject-side').value=values.side;$('#subject-size').value=values.size;$('#photo-focus').value=50;
+  $('#poster-style').value=values.style;$('#poster-ratio').value=values.ratio;$('#subject-side').value=values.side;$('#subject-size').value=values.size;$('#photo-focus').value=50;
   document.querySelectorAll('[data-preset]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.preset===name)));
   renderPoster();
 }
@@ -286,16 +233,19 @@ $('#layout-input').onchange = async event => {
     const answer = answerById(value.text?.id),topic = answer && topicById(answer.topic);
     const variant = content.model.variants[value.model?.quality];
     const validPercent = (number,minimum,maximum) => Number.isFinite(number) && number>=minimum && number<=maximum;
-    if(value.type!=='lilinger-composition'||value.version!==2||value.sourceVersion!==catalog.publicVersion||!answer||!presets[value.preset]||!['landscape','portrait','square'].includes(value.ratio)||!['left','right'].includes(value.subjectSide)||!validPercent(value.subjectPercent,45,88)||!validPercent(value.photoFocusPercent,0,100)||!variant||value.modelFile!==variant.file||value.modelSha256!==variant.sha256||value.image?.file!==topic.image||value.image.sha256!==catalog.assets.find(asset=>asset.file===topic.image).sha256)throw new Error('参数与当前资料或素材版本不对应');
+    if(value.type!=='lilinger-composition'||![2,3].includes(value.version)||value.sourceVersion!==catalog.publicVersion||!answer||(value.version===3&&(value.designVersion!==posterDesignVersion||!['immersive','gallery'].includes(value.visualStyle)))||!presets[value.preset]||!['landscape','portrait','square'].includes(value.ratio)||!['left','right'].includes(value.subjectSide)||!validPercent(value.subjectPercent,45,88)||!validPercent(value.photoFocusPercent,0,100)||!variant||value.modelFile!==variant.file||value.modelSha256!==variant.sha256||value.image?.file!==topic.image||value.image.sha256!==catalog.assets.find(asset=>asset.file===topic.image).sha256)throw new Error('参数与当前资料或素材版本不对应');
     const module=await ensureViewer();
     module.validateParameters(value.model);
     $('#compose-status').textContent='正在恢复取景与构图…';
     preset=value.preset;
+    $('#poster-style').value=value.version===3?value.visualStyle:presets[preset].style;
     document.querySelectorAll('[data-preset]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.preset===preset)));
     $('#poster-topic').value=topic.id;updateAnswerOptions(answer.id);
     $('#poster-ratio').value=value.ratio;$('#subject-side').value=value.subjectSide;$('#subject-size').value=value.subjectPercent;$('#photo-focus').value=value.photoFocusPercent;
+    initialPortrait=false;
     await module.restoreParameters(value.model);
     await captureSubject();
+    if(value.version===2)$('#compose-status').textContent+=' · 旧参数已用新版版式呈现';
   } catch(error) { $('#compose-status').textContent='未导入：'+error.message+'。可以继续使用当前构图。'; }
   finally { event.target.value=''; }
 };
