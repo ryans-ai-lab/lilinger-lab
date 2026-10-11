@@ -1,0 +1,261 @@
+{
+  "publicVersion": "2026-10-11",
+  "assets": [
+    {
+      "id": "model-mobile",
+      "label": "李灵儿 · 快速版",
+      "kind": "model",
+      "file": "models/lilinger-mobile-20261011.glb",
+      "bytes": 8026592,
+      "sha256": "7e1aea03ca0386d0c8bf4dd99e4d41ba90b039de4bfffbd98253ab478934ac1d",
+      "usage": "用于优先载入的静态角色预览与透明取景。",
+      "thumbnail": "assets/images/character-preview.webp"
+    },
+    {
+      "id": "model-web",
+      "label": "李灵儿 · 标准版",
+      "kind": "model",
+      "file": "models/lilinger-web.glb",
+      "bytes": 14810068,
+      "sha256": "313683f5b9a029e64d76c9aa17ceec50ac28d94b3270bcabbefb7445a303ab34",
+      "usage": "用于静态角色的常规网页查看与取景。",
+      "thumbnail": "assets/images/character-preview.webp"
+    },
+    {
+      "id": "model-detail",
+      "label": "李灵儿 · 细节版",
+      "kind": "model",
+      "file": "models/lilinger-detail.glb",
+      "bytes": 21623052,
+      "sha256": "02eb83fcd9f0e41de774eb4b98cf6d9c57a031ef4c92eb082eeb1e308fa2ee7c",
+      "usage": "用于查看面部、服装和发丝细节，按需载入。",
+      "thumbnail": "assets/images/character-preview.webp"
+    },
+    {
+      "id": "image-grain",
+      "label": "从青稞开始",
+      "kind": "image",
+      "file": "assets/images/grain.webp",
+      "bytes": 106164,
+      "sha256": "d7fe1078c590abfade155f2d7b096e4a40af4535388f4b099cb47e4233e38964",
+      "usage": "用于原粮主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/grain.webp",
+      "sourceCitation": "《天佑德青稞酒技术100问》第2、3问 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "image-qu",
+      "label": "大曲的形态",
+      "kind": "image",
+      "file": "assets/images/qu.webp",
+      "bytes": 142640,
+      "sha256": "1b75e3b5e50b87be464be1b871151574608bd640934d0c6e5389da4865b56760",
+      "usage": "用于制曲主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/qu.webp",
+      "sourceCitation": "《天佑德青稞酒技术100问》第22问 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "image-ferment",
+      "label": "走近花岗岩窖池",
+      "kind": "image",
+      "file": "assets/images/ferment.webp",
+      "bytes": 201440,
+      "sha256": "1eb4a4442f7c7d0feaa3db768ff01e29ec903e51afda9a9e40ab5005531bf63e",
+      "usage": "用于发酵主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/ferment.webp",
+      "sourceCitation": "《天佑德青稞酒技术100问》第37问；企业品牌知识也收录同图 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "image-storage",
+      "label": "陶坛储酒",
+      "kind": "image",
+      "file": "assets/images/storage.webp",
+      "bytes": 314694,
+      "sha256": "af96bad4798436044f7c966db07052ce5c765786bf010c532f7011a17e92aa55",
+      "usage": "用于陈藏主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/storage.webp",
+      "sourceCitation": "《企业品牌产品知识》第18问 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "image-campus",
+      "label": "厂区的建筑面貌",
+      "kind": "image",
+      "file": "assets/images/campus.webp",
+      "bytes": 200624,
+      "sha256": "febe5a5d61111831b425f3502811cb292a734e52255419873013a517572a06de",
+      "usage": "用于厂区主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/campus.webp",
+      "sourceCitation": "《企业品牌产品知识》第39问 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "image-culture",
+      "label": "厂区文化雕塑",
+      "kind": "image",
+      "file": "assets/images/culture.webp",
+      "bytes": 125510,
+      "sha256": "a87de20313bfaf4df31423212cb572aa1a0d5c46beed63cdb6daece228858c20",
+      "usage": "用于文化主题图文与讲解卡，保留资料出处。",
+      "thumbnail": "assets/images/culture.webp",
+      "sourceCitation": "《企业品牌产品知识》第55问 · 2024年企业知识资料 · 配图拍摄日期未核实"
+    },
+    {
+      "id": "video-emotion-0",
+      "label": "哈？ · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-0.mp4",
+      "bytes": 862825,
+      "sha256": "00e8cdb91e0dbdb97783e8f282bac152215cfe152ce59e8ed4980d8c84476a04",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-0.png"
+    },
+    {
+      "id": "video-emotion-1",
+      "label": "天空之镜 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-1.mp4",
+      "bytes": 355200,
+      "sha256": "4ca8c140adaa4b0d2ac18d8d747b1c3e1c394e5fa072029b321075a27ef8b211",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-1.png"
+    },
+    {
+      "id": "video-emotion-2",
+      "label": "扎西德勒 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-2.mp4",
+      "bytes": 741845,
+      "sha256": "2c0f222ed7b276bf01022ae953a82e111374ca16f43db8c824d928b77d01ac96",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-2.png"
+    },
+    {
+      "id": "video-emotion-3",
+      "label": "宝宝苦 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-3.mp4",
+      "bytes": 815075,
+      "sha256": "cedae16fbad8b3ee96cd3a251e2710f9f4b4ee98d3fcd31002750faa1e6083bc",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-3.png"
+    },
+    {
+      "id": "video-emotion-4",
+      "label": "冲鸭 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-4.mp4",
+      "bytes": 897033,
+      "sha256": "c8c9712ff3294a180539a00476d5baddfc34dbfbd433acdae48038b129758fea",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-4.png"
+    },
+    {
+      "id": "video-emotion-5",
+      "label": "不可以 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-5.mp4",
+      "bytes": 943858,
+      "sha256": "ee165b85ea33029b4b1cbd5cd842dad0131ba6ff07efa113115509049ad1fb75",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-5.png"
+    },
+    {
+      "id": "video-emotion-6",
+      "label": "晚安 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-6.mp4",
+      "bytes": 689461,
+      "sha256": "9ad6581ff8ca3bba6591f16116fb622cc2164ad7e5bbac5f7f672a5a6e580152",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-6.png"
+    },
+    {
+      "id": "video-emotion-7",
+      "label": "给你比心 · 表情视频",
+      "kind": "video",
+      "file": "assets/expressions/emotion-7.mp4",
+      "bytes": 760989,
+      "sha256": "8246ee26bb75550b67ba45c95273993b75e6338e7e09044ae50998a7aada0a07",
+      "usage": "独立播放的小表情，供图文提示与字幕配合使用。",
+      "thumbnail": "assets/expressions/emotion-7.png"
+    },
+    {
+      "id": "preview-emotion-0",
+      "label": "哈？ · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-0.png",
+      "bytes": 262443,
+      "sha256": "e543dd131d2e0980345a38eff64ca4ed22f97c898a1c0785595fa9c2097a35c7",
+      "usage": "用于“哈？”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-0.png"
+    },
+    {
+      "id": "preview-emotion-1",
+      "label": "天空之镜 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-1.png",
+      "bytes": 205454,
+      "sha256": "a39a2b90dabdc80ed0fbe8730c4036560c9753e866c9fdaf68120e075e471bba",
+      "usage": "用于“天空之镜”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-1.png"
+    },
+    {
+      "id": "preview-emotion-2",
+      "label": "扎西德勒 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-2.png",
+      "bytes": 229479,
+      "sha256": "29753b00fde123e19a208a3fe81e48e48c1591c9ad0392c3291ae069170244c6",
+      "usage": "用于“扎西德勒”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-2.png"
+    },
+    {
+      "id": "preview-emotion-3",
+      "label": "宝宝苦 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-3.png",
+      "bytes": 206917,
+      "sha256": "0c22ae64c54783800cf00e783774f9ce4d08b556dbc7b3b8e4a8ad26520741b6",
+      "usage": "用于“宝宝苦”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-3.png"
+    },
+    {
+      "id": "preview-emotion-4",
+      "label": "冲鸭 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-4.png",
+      "bytes": 225971,
+      "sha256": "995ebe55148220414fde907d8b31a3690d17ac57013fa916f894b2af0564e439",
+      "usage": "用于“冲鸭”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-4.png"
+    },
+    {
+      "id": "preview-emotion-5",
+      "label": "不可以 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-5.png",
+      "bytes": 232836,
+      "sha256": "4ea114e79158b469b2760abe216ad83f36d8760ae249b97d9e72d9cb570cbea6",
+      "usage": "用于“不可以”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-5.png"
+    },
+    {
+      "id": "preview-emotion-6",
+      "label": "晚安 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-6.png",
+      "bytes": 235213,
+      "sha256": "f8d71bdc36271542c86a74d0396862060189057353dabb1564d0d6b2430fb1db",
+      "usage": "用于“晚安”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-6.png"
+    },
+    {
+      "id": "preview-emotion-7",
+      "label": "给你比心 · 预览图",
+      "kind": "preview",
+      "file": "assets/expressions/emotion-7.png",
+      "bytes": 235384,
+      "sha256": "6b4f9c527376fcf05845ccff6e3c3cb78057163fd822e52c5c19bfcfbdc9544a",
+      "usage": "用于“给你比心”表情的选择与预览。",
+      "thumbnail": "assets/expressions/emotion-7.png"
+    }
+  ]
+}
