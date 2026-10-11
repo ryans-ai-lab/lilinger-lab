@@ -1,0 +1,366 @@
+{
+  "topics": [
+    {
+      "id": "grain",
+      "label": "原粮",
+      "title": "从青稞开始",
+      "text": "资料中的青稞田景象，呈现酿造原粮的生长环境。把原粮图片与工艺解释放在一起，导览可以从一粒粮食开始。",
+      "image": "assets/images/grain.webp",
+      "imageAlt": "从青稞开始",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "question": "第2、3问",
+      "sourceMedia": "word/media/image1.jpeg",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "c82ab674270d",
+      "connection": "https://ryanlab.cn/tyd/#craft",
+      "keywords": [
+        "青稞",
+        "原粮",
+        "种植",
+        "原料",
+        "粮食"
+      ]
+    },
+    {
+      "id": "qu",
+      "label": "制曲",
+      "title": "大曲的形态",
+      "text": "成块的大曲分层堆放，资料将其用于介绍制曲与酿造的关系。曲块、原粮和窖池，可以组成一条看得见的工艺线索。",
+      "image": "assets/images/qu.webp",
+      "imageAlt": "大曲的形态",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "question": "第22问",
+      "sourceMedia": "word/media/image9.jpeg",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "c7423bd91687",
+      "connection": "https://ryanlab.cn/tyd/#craft",
+      "keywords": [
+        "大曲",
+        "曲块",
+        "制曲",
+        "曲粮合一",
+        "酶"
+      ]
+    },
+    {
+      "id": "ferment",
+      "label": "发酵",
+      "title": "走近花岗岩窖池",
+      "text": "从资料配图观察窖池的石砌结构与排列方式。图片适合讲清一个工艺对象；不能据此推算全厂数量或现场位置。",
+      "image": "assets/images/ferment.webp",
+      "imageAlt": "走近花岗岩窖池",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "question": "第37问；企业品牌知识也收录同图",
+      "sourceMedia": "word/media/image13.jpeg",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "700122c7d989",
+      "connection": "https://ryanlab.cn/tyd/#craft",
+      "keywords": [
+        "花岗岩",
+        "窖池",
+        "发酵",
+        "四次清",
+        "清蒸",
+        "清烧"
+      ]
+    },
+    {
+      "id": "storage",
+      "label": "陈藏",
+      "title": "陶坛储酒",
+      "text": "资料记录了陶坛成排布置的储酒场景。将容器照片与来源说明组合起来，可供工艺导览和培训取用。",
+      "image": "assets/images/storage.webp",
+      "imageAlt": "陶坛储酒",
+      "sourceTitle": "企业品牌产品知识",
+      "question": "第18问",
+      "sourceMedia": "word/media/image5.jpeg",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "409cbf7c26f9",
+      "connection": "https://ryanlab.cn/tyd/#craft",
+      "keywords": [
+        "陶坛",
+        "储酒",
+        "陈藏",
+        "容器",
+        "酒海",
+        "不锈钢",
+        "罐"
+      ]
+    },
+    {
+      "id": "campus",
+      "label": "厂区",
+      "title": "厂区的建筑面貌",
+      "text": "这张资料图记录了天佑德办公楼及前方广场。它可以补充数字酒厂的建筑参照；图片没有覆盖的背面与细节仍需其他依据。",
+      "image": "assets/images/campus.webp",
+      "imageAlt": "厂区的建筑面貌",
+      "sourceTitle": "企业品牌产品知识",
+      "question": "第39问",
+      "sourceMedia": "word/media/image9.png",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "b9aeec3dd756",
+      "connection": "https://ryanlab.cn/tyd/#building",
+      "keywords": [
+        "厂区",
+        "办公楼",
+        "建筑",
+        "广场",
+        "模型",
+        "酒厂"
+      ]
+    },
+    {
+      "id": "culture",
+      "label": "文化",
+      "title": "厂区文化雕塑",
+      "text": "资料将这座雕塑标注为“金禅酒祖”，作为厂区文化展示的一部分。文化对象可以与图文导览发生关系，再由访客进入相关空间。",
+      "image": "assets/images/culture.webp",
+      "imageAlt": "厂区文化雕塑",
+      "sourceTitle": "企业品牌产品知识",
+      "question": "第55问",
+      "sourceMedia": "word/media/image18.jpeg",
+      "sourceVersion": "2024年企业知识资料",
+      "photoDate": "配图拍摄日期未核实",
+      "sourceAssetId": "0beb4dd3c4f5",
+      "connection": "https://ryanlab.cn/tyd/#content-company",
+      "keywords": [
+        "金禅",
+        "雕塑",
+        "文化",
+        "酒祖",
+        "展陈",
+        "文学馆"
+      ]
+    }
+  ],
+  "answers": [
+    {
+      "id": "grain-origin",
+      "question": "青稞一般在哪些地方种植？",
+      "answer": "技术资料将青藏高原列为青稞的主要种植区域，并介绍其适应寒冷环境的特点。这里用青稞田配图建立原粮与酿造的联系。",
+      "topic": "grain",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "reference": "第2问",
+      "line": 6,
+      "keywords": [
+        "青稞",
+        "原粮",
+        "种植",
+        "哪里",
+        "生长"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "qu-definition",
+      "question": "什么是大曲？",
+      "answer": "大曲通常呈块状，包含酿造所需的微生物、酶和代谢产物。资料用它解释粮食转化与酒体风味形成之间的关系。",
+      "topic": "qu",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "reference": "第12问",
+      "line": 24,
+      "keywords": [
+        "大曲",
+        "是什么",
+        "曲块",
+        "微生物",
+        "制曲"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "grain-qu",
+      "question": "什么是曲粮合一？",
+      "answer": "旧资料用“曲粮合一”概括青稞作为酿酒原粮、同时也是大曲主要原料的关系。本页保留这个概念线索，具体生产配方不在展示范围内。",
+      "topic": "qu",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "reference": "第22问",
+      "line": 34,
+      "keywords": [
+        "曲粮合一",
+        "原料",
+        "大曲",
+        "青稞"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "pit-material",
+      "question": "资料里的窖池是什么材质？",
+      "answer": "技术资料将配图中的窖池标为花岗岩窖池，并以材料结构和维护、清洗的特点解释使用原因。可从图片观察石砌表面与窖池排列。",
+      "topic": "ferment",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "reference": "第37问",
+      "line": 51,
+      "keywords": [
+        "窖池",
+        "花岗岩",
+        "材质",
+        "石砌",
+        "发酵"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "four-cycle",
+      "question": "清蒸清烧四次清是什么意思？",
+      "answer": "资料以“一次投料、四次发酵”解释这一工艺概念：酒醅经历发酵和蒸酒后，再经扬冷、加曲进入下一轮。这里呈现概念，不提供生产操作参数。",
+      "topic": "ferment",
+      "sourceTitle": "天佑德青稞酒技术100问",
+      "reference": "第33问",
+      "line": 47,
+      "keywords": [
+        "四次清",
+        "清蒸",
+        "清烧",
+        "工艺",
+        "发酵"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "clay-storage",
+      "question": "陶坛在白酒生产中做什么？",
+      "answer": "陶坛是储酒容器之一，由黏土高温烧制而成。企业资料用陶坛照片说明原酒储存的场景；本页不把旧资料里的时间参数当作当前生产承诺。",
+      "topic": "storage",
+      "sourceTitle": "企业品牌产品知识",
+      "reference": "第18问",
+      "line": 19,
+      "keywords": [
+        "陶坛",
+        "坛",
+        "储酒",
+        "存酒",
+        "陈藏"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "container-types",
+      "question": "旧资料提到了哪些储酒容器？",
+      "answer": "企业资料列举了不锈钢罐、陶坛、酒海和瓶储。这里按容器对象组织导览，产品年份、存量和当前规格另以正式资料为准。",
+      "topic": "storage",
+      "sourceTitle": "企业品牌产品知识",
+      "reference": "第15问",
+      "line": 16,
+      "keywords": [
+        "容器",
+        "储酒",
+        "不锈钢",
+        "瓶储",
+        "罐",
+        "陈藏"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "jiuhai",
+      "question": "酒海是什么？",
+      "answer": "企业资料介绍的酒海是藤编外壳、内壁逐层裱糊的储酒容器。它与陶坛、不锈钢罐共同构成资料中的储酒线索。",
+      "topic": "storage",
+      "sourceTitle": "企业品牌产品知识",
+      "reference": "第17问",
+      "line": 18,
+      "keywords": [
+        "酒海",
+        "藤条",
+        "储酒容器"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "campus-photo",
+      "question": "厂区图片可以怎样用于三维项目？",
+      "answer": "办公楼正立面与广场照片，可以补充建筑比例和外观参照。它只说明图中可见部分，不能自动补全背面或认定拍摄时点就是今天。",
+      "topic": "campus",
+      "sourceTitle": "企业品牌产品知识配图",
+      "reference": "第39问，图片观察与复用说明",
+      "line": null,
+      "keywords": [
+        "办公楼",
+        "厂区",
+        "建筑",
+        "模型",
+        "三维",
+        "3d"
+      ],
+      "kind": "实验说明"
+    },
+    {
+      "id": "sculpture",
+      "question": "这座雕塑在资料中叫什么？",
+      "answer": "企业资料把这座厂区雕塑标为“金禅酒祖”。本页把它作为文化展示对象，不将原文里的历史解释改写为已经核定的考古结论。",
+      "topic": "culture",
+      "sourceTitle": "企业品牌产品知识",
+      "reference": "第55问",
+      "line": 57,
+      "keywords": [
+        "雕塑",
+        "金禅",
+        "酒祖",
+        "文化"
+      ],
+      "kind": "资料摘编"
+    },
+    {
+      "id": "museum-connection",
+      "question": "这个实验怎样与青海文学馆发生关系？",
+      "answer": "可以复用主题选择、图片与出处并列、按问题寻找内容的导览方法。文学馆的展品与正文仍来自原项目，厂区雕塑没有被当作文学馆展品。",
+      "topic": "culture",
+      "sourceTitle": "Ryan Lab 独立实验",
+      "reference": "跨项目复用设想",
+      "line": null,
+      "keywords": [
+        "文学馆",
+        "文化馆",
+        "展陈",
+        "导览",
+        "关系"
+      ],
+      "kind": "实验说明"
+    },
+    {
+      "id": "character-use",
+      "question": "李灵儿现在可以怎么用？",
+      "answer": "网页已能转动和取景静态角色，也能播放原有小表情。它可以承担资料入口和固定姿态展示；动作、口型和实时对话需要另接相应工程。",
+      "topic": "campus",
+      "sourceTitle": "李灵儿本地资产恢复",
+      "reference": "静态模型与表情实测",
+      "line": null,
+      "keywords": [
+        "李灵儿",
+        "角色",
+        "数字人",
+        "动作",
+        "口型",
+        "说话"
+      ],
+      "kind": "实验说明"
+    }
+  ],
+  "model": {
+    "sourceBytes": 369015736,
+    "variants": {
+      "web": {
+        "file": "models/lilinger-web.glb",
+        "label": "网页轻量版",
+        "bytes": 14810068,
+        "triangles": 1382952
+      },
+      "detail": {
+        "file": "models/lilinger-detail.glb",
+        "label": "细节版",
+        "bytes": 21623052,
+        "triangles": 2468997
+      }
+    },
+    "hairPolicy": "保留全部发束，沿发丝长度减少面数；非毛发原面保留。"
+  },
+  "version": "2026-10-11",
+  "knowledgeMode": "curated-source-retrieval"
+}
