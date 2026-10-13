@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>追踪组件与来源 · 李灵儿</title>
+<style>:root{color-scheme:dark;font:16px/1.75 system-ui,sans-serif;background:#111b20;color:#dde7e8}body{max-width:820px;margin:auto;padding:calc(24px + env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left))}h1{font-size:clamp(28px,6vw,42px);line-height:1.2}h2{font-size:21px;margin-top:36px}a{color:#9cddd1;text-underline-offset:4px;overflow-wrap:anywhere}p,li{max-width:68ch}li{margin:10px 0}code{font-size:.9em;overflow-wrap:anywhere}.muted{color:#a0b2b8}nav a{display:inline-block;padding:12px 0}section{border-top:1px solid #33464d;margin-top:28px}small{font-size:13px}</style>
+<nav><a href="./motion.html">← 返回动作实验</a></nav>
+<main><p class="muted">李灵儿 · 本地动作实验</p><h1>组件、模型与来源</h1>
+<p>面部和身体识别在当前浏览器中运行。首次载入会下载本站保存的程序和模型；摄像头帧只用于本机推理，不上传、不录制。离开页面或点击停止后关闭摄像头。</p>
+<section><h2>MediaPipe Tasks Vision 1.1.0</h2><p>使用 Google MediaPipe 的 Face Landmarker 与 Pose Landmarker，版本固定为 <code>@mediapipe/tasks-vision 1.1.0</code>。JavaScript、WASM 与模型由本站同源提供，运行时不依赖外部 CDN。</p><ul>
+<li><a href="https://github.com/google-ai-edge/mediapipe">官方源码仓库</a> · <a href="https://www.npmjs.com/package/@mediapipe/tasks-vision/v/1.1.0">指定 npm 版本</a></li>
+<li>许可：Apache License 2.0。<a href="./vendor/mediapipe/1.1.0/LICENSE">本站完整许可证</a> · <a href="https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE">官方许可证</a></li>
+<li><a href="./vendor/mediapipe/1.1.0/ASSETS.json">文件来源、体积与 SHA-256 清单</a></li>
+<li>本站版本关闭了 SDK 的可选运行指标上报；模型与推理算法保持原样。<a href="./vendor/mediapipe/1.1.0/LOCAL-MODIFICATIONS.md">修改说明与核对方法</a></li>
+</ul></section>
+<section><h2>面部模型</h2><p>Face Landmarker，float16，第 1 版。模型包包含面部检测、478 个面部点和 52 项表情系数；角色只响应当前模型已制作的表情目标。</p><ul>
+<li><a href="https://developers.google.com/edge/mediapipe/solutions/vision/face_landmarker">官方说明与模型入口</a> · <a href="https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task">固定模型来源</a></li>
+<li>模型许可依据：<a href="https://storage.googleapis.com/mediapipe-assets/MediaPipe%20BlazeFace%20Model%20Card%20(Short%20Range).pdf">BlazeFace 模型卡，第 1 页</a>、<a href="https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf">Face Mesh V2 模型卡，第 1 页</a>和<a href="https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf">Blendshape V2 模型卡，第 1 页</a>均列明 Apache License 2.0。</li>
+</ul></section>
+<section><h2>身体模型</h2><p>Pose Landmarker Lite，float16，第 1 版。使用 33 个身体关键点估计躯干与四肢方向，不包含独立手指追踪、脚底锁定或专业动作捕捉精度。</p><ul>
+<li><a href="https://developers.google.com/edge/mediapipe/solutions/vision/pose_landmarker">官方说明与模型入口</a> · <a href="https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task">固定模型来源</a></li>
+<li>模型许可依据：<a href="https://storage.googleapis.com/mediapipe-assets/Model%20Card%20BlazePose%20GHUM%203D.pdf">BlazePose GHUM 3D 模型卡，第 2 页</a>列明 Apache License 2.0。</li>
+</ul></section>
+<section><h2>3D 显示与角色适配</h2><p>3D 显示沿用项目已有的 Three.js r180（MIT 许可）。骨骼映射、平滑和实验用表情适配为本项目实现；李灵儿原有角色素材的权属不因使用开源组件而改变。</p><ul><li><a href="https://github.com/mrdoob/three.js/tree/r180">Three.js r180 官方源码</a> · <a href="./vendor/LICENSE">本站完整 MIT 许可证</a></li></ul><p class="muted"><small>来源核验：2026 年 10 月 12 日。KalidoKit 官方仓库已标记弃用，本实验没有引入该组件。桌面模拟尺寸通过与 iPhone 真机 Safari 通过分别记录。</small></p></section>
+</main></html>

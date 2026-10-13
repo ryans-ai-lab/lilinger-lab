@@ -1,0 +1,81 @@
+{
+  "package": "@mediapipe/tasks-vision",
+  "version": "1.1.0",
+  "license": "Apache-2.0",
+  "packageIntegrity": "sha512-ZJqh0wMKOINorfSffvDAxzyO1//c+FiG3IkzOdNDnLqvBB3DbMfj0bB/tys2SNf9S914sgoIbIpF4HTOi336cg==",
+  "downloadedAt": "2026-10-12",
+  "models": "Google MediaPipe float16 revision 1",
+  "privacy": "Assets are served locally; camera frames stay in this browser. No capture or upload endpoint.",
+  "files": [
+    {
+      "path": "vendor/mediapipe/1.1.0/vision_bundle.mjs",
+      "bytes": 156288,
+      "sha256": "0fc86e69a4d6c2001029beb68ef1b3737ab44d384fc95a8fe8d254d23b48adde",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz",
+      "upstreamSha256": "9d5fc9ef74b22329cf9aa88dc543956d192b8c254210b187271614713eb5b10c",
+      "modification": "Disable optional SDK metrics logger at its single constructor site; no data, model or inference changes."
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_internal.js",
+      "bytes": 335393,
+      "sha256": "7c652617b5bef832f42878ce8c5f752b0724bca6054e4bc1013a37d4b1949723",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_internal.wasm",
+      "bytes": 12997248,
+      "sha256": "782eda3ec1f414fdb4f1d66a8b59093eb4d5ab437e06117796abf05962d68eef",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_module_internal.js",
+      "bytes": 335431,
+      "sha256": "70eff3956521b7de058d7173a4935c95e4a223c26ea624b9f5a936d3a043dcb0",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_module_internal.wasm",
+      "bytes": 12997272,
+      "sha256": "ee03b14a878e6c3c053a1bfa62e166dc45244be54dc0bbe61c578f710b771f6a",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_nosimd_internal.js",
+      "bytes": 335196,
+      "sha256": "510fc70a170eb8b46767a7abab2af89a7a8341fa5b3ebfb8a5de41a79b7fa9df",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/wasm/vision_wasm_nosimd_internal.wasm",
+      "bytes": 12168316,
+      "sha256": "b802041d105876865d6a0806f2ff7c4419a7f1b80bc01340fe36e759c2030011",
+      "source": "https://registry.npmjs.org/@mediapipe/tasks-vision/-/tasks-vision-1.1.0.tgz"
+    },
+    {
+      "path": "models/tracking/face_landmarker.task",
+      "bytes": 3758596,
+      "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+      "source": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task"
+    },
+    {
+      "path": "models/tracking/pose_landmarker_lite.task",
+      "bytes": 5777746,
+      "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a",
+      "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task"
+    },
+    {
+      "path": "vendor/mediapipe/1.1.0/LICENSE",
+      "bytes": 12331,
+      "sha256": "8707eef0533987efc5b155d64761eeb6e20793f50b9bd1a68dad1cf4719d0ed8",
+      "source": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE"
+    }
+  ],
+  "localModification": {
+    "reason": "Prevent optional SDK runtime telemetry POSTs; all processing remains local",
+    "match": "this.m=new Mh(r)",
+    "replacement": "this.m={error:true,i:[],close(){},flush(){}}",
+    "upstreamBundleSha256": "9d5fc9ef74b22329cf9aa88dc543956d192b8c254210b187271614713eb5b10c",
+    "modifiedBundleSha256": "0fc86e69a4d6c2001029beb68ef1b3737ab44d384fc95a8fe8d254d23b48adde",
+    "modifiedAt": "2026-10-12"
+  }
+}

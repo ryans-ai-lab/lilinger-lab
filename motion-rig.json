@@ -1,0 +1,656 @@
+{
+  "version": 1,
+  "rigVersion": "2026-10-13.1",
+  "model": {
+    "url": "./models/lilinger-motion.glb",
+    "file": "lilinger-motion.glb",
+    "bytes": 10242844,
+    "sha256": "511a250d06955ec6f6886e6a2bf1fc967fb8616eb4904375d72770413dbe68a5",
+    "triangles": 1084123,
+    "vertices": 1124100
+  },
+  "coordinateSystem": {
+    "unit": "meter",
+    "up": "+Y",
+    "front": "+Z",
+    "characterLeft": "+X"
+  },
+  "restPose": "A-pose",
+  "bones": [
+    {
+      "name": "Hips",
+      "parent": null,
+      "restWorldPosition": [
+        0,
+        1.015,
+        -0.025
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0,
+        1.015,
+        -0.025
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Spine",
+      "parent": "Hips",
+      "restWorldPosition": [
+        0,
+        1.16,
+        -0.02
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0,
+        0.14500000000000002,
+        0.005000000000000001
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Chest",
+      "parent": "Spine",
+      "restWorldPosition": [
+        0,
+        1.3,
+        -0.03
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0,
+        0.14000000000000012,
+        -0.009999999999999998
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "UpperChest",
+      "parent": "Chest",
+      "restWorldPosition": [
+        0,
+        1.407,
+        -0.037
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0,
+        0.10699999999999998,
+        -0.006999999999999999
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Neck",
+      "parent": "UpperChest",
+      "restWorldPosition": [
+        0,
+        1.48,
+        -0.021
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0,
+        0.07299999999999995,
+        0.015999999999999997
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Head",
+      "parent": "Neck",
+      "restWorldPosition": [
+        0,
+        1.565,
+        -0.01
+      ],
+      "restTailWorldPosition": [
+        0,
+        1.735,
+        -0.013
+      ],
+      "restLocalPosition": [
+        0,
+        0.08499999999999996,
+        0.011000000000000001
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftShoulder",
+      "parent": "UpperChest",
+      "restWorldPosition": [
+        0.063,
+        1.42,
+        -0.034
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.063,
+        0.0129999999999999,
+        0.0029999999999999957
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftUpperArm",
+      "parent": "LeftShoulder",
+      "restWorldPosition": [
+        0.147,
+        1.416,
+        -0.04
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.08399999999999999,
+        -0.0040000000000000036,
+        -0.005999999999999998
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftLowerArm",
+      "parent": "LeftUpperArm",
+      "restWorldPosition": [
+        0.289,
+        1.241,
+        -0.025
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.142,
+        -0.17499999999999982,
+        0.015
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftHand",
+      "parent": "LeftLowerArm",
+      "restWorldPosition": [
+        0.412,
+        1.079,
+        0.112
+      ],
+      "restTailWorldPosition": [
+        0.446,
+        1,
+        0.178
+      ],
+      "restLocalPosition": [
+        0.123,
+        -0.16200000000000014,
+        0.137
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftUpperLeg",
+      "parent": "Hips",
+      "restWorldPosition": [
+        0.079,
+        0.986,
+        -0.025
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.079,
+        -0.028999999999999915,
+        0
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftLowerLeg",
+      "parent": "LeftUpperLeg",
+      "restWorldPosition": [
+        0.11,
+        0.532,
+        -0.045
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.031,
+        -0.45399999999999996,
+        -0.019999999999999997
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftFoot",
+      "parent": "LeftLowerLeg",
+      "restWorldPosition": [
+        0.137,
+        0.084,
+        -0.045
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.02700000000000001,
+        -0.448,
+        0
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftToes",
+      "parent": "LeftFoot",
+      "restWorldPosition": [
+        0.177,
+        -0.027,
+        0.048
+      ],
+      "restTailWorldPosition": [
+        0.205,
+        -0.033,
+        0.085
+      ],
+      "restLocalPosition": [
+        0.03999999999999998,
+        -0.111,
+        0.093
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightShoulder",
+      "parent": "UpperChest",
+      "restWorldPosition": [
+        -0.063,
+        1.42,
+        -0.034
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.063,
+        0.0129999999999999,
+        0.0029999999999999957
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightUpperArm",
+      "parent": "RightShoulder",
+      "restWorldPosition": [
+        -0.147,
+        1.416,
+        -0.04
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.08399999999999999,
+        -0.0040000000000000036,
+        -0.005999999999999998
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightLowerArm",
+      "parent": "RightUpperArm",
+      "restWorldPosition": [
+        -0.289,
+        1.241,
+        -0.025
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.142,
+        -0.17499999999999982,
+        0.015
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightHand",
+      "parent": "RightLowerArm",
+      "restWorldPosition": [
+        -0.412,
+        1.079,
+        0.112
+      ],
+      "restTailWorldPosition": [
+        -0.446,
+        1,
+        0.178
+      ],
+      "restLocalPosition": [
+        -0.123,
+        -0.16200000000000014,
+        0.137
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightUpperLeg",
+      "parent": "Hips",
+      "restWorldPosition": [
+        -0.079,
+        0.986,
+        -0.025
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.079,
+        -0.028999999999999915,
+        0
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightLowerLeg",
+      "parent": "RightUpperLeg",
+      "restWorldPosition": [
+        -0.11,
+        0.532,
+        -0.045
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.031,
+        -0.45399999999999996,
+        -0.019999999999999997
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightFoot",
+      "parent": "RightLowerLeg",
+      "restWorldPosition": [
+        -0.137,
+        0.084,
+        -0.045
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.02700000000000001,
+        -0.448,
+        0
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightToes",
+      "parent": "RightFoot",
+      "restWorldPosition": [
+        -0.177,
+        -0.027,
+        0.048
+      ],
+      "restTailWorldPosition": [
+        -0.205,
+        -0.033,
+        0.085
+      ],
+      "restLocalPosition": [
+        -0.03999999999999998,
+        -0.111,
+        0.093
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "LeftEye",
+      "parent": "Head",
+      "restWorldPosition": [
+        0.03142,
+        1.63766,
+        0.05595
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        0.03142,
+        0.07265999999999995,
+        0.06595
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "RightEye",
+      "parent": "Head",
+      "restWorldPosition": [
+        -0.03197,
+        1.6384,
+        0.05535
+      ],
+      "restTailWorldPosition": null,
+      "restLocalPosition": [
+        -0.03197,
+        0.07340000000000013,
+        0.06535
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "name": "Jaw",
+      "parent": "Head",
+      "restWorldPosition": [
+        0,
+        1.597,
+        0.012
+      ],
+      "restTailWorldPosition": [
+        0,
+        1.551,
+        0.075
+      ],
+      "restLocalPosition": [
+        0,
+        0.03200000000000003,
+        0.022
+      ],
+      "restRotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "morphs": [
+    "eyeBlinkLeft",
+    "eyeBlinkRight",
+    "jawOpen",
+    "mouthSmileLeft",
+    "mouthSmileRight",
+    "browInnerUp",
+    "browDownLeft",
+    "browDownRight",
+    "browOuterUpLeft",
+    "browOuterUpRight",
+    "mouthFunnel"
+  ],
+  "morphTargetsByMesh": {
+    "baseShape": [
+      "eyeBlinkLeft",
+      "eyeBlinkRight",
+      "jawOpen",
+      "mouthSmileLeft",
+      "mouthSmileRight",
+      "browInnerUp",
+      "browDownLeft",
+      "browDownRight",
+      "browOuterUpLeft",
+      "browOuterUpRight",
+      "mouthFunnel"
+    ],
+    "eyeLeftShape": [
+      "eyeBlinkLeft"
+    ],
+    "eyeRightShape": [
+      "eyeBlinkRight"
+    ],
+    "lash_meshShape": [
+      "eyeBlinkLeft",
+      "eyeBlinkRight"
+    ],
+    "eyebrow_meshShape": [
+      "browInnerUp",
+      "browDownLeft",
+      "browDownRight",
+      "browOuterUpLeft",
+      "browOuterUpRight"
+    ],
+    "teethShape": [
+      "jawOpen"
+    ]
+  },
+  "bounds": {
+    "min": [
+      -0.4739290475845337,
+      -0.06221865490078926,
+      -0.16926446557044983
+    ],
+    "max": [
+      0.47392868995666504,
+      1.7805564403533936,
+      0.2141597419977188
+    ]
+  },
+  "morphRange": {
+    "min": 0,
+    "max": 1
+  },
+  "source": {
+    "file": "ling-er-mobile-20261011.glb",
+    "bytes": 8026592,
+    "sha256": "7e1aea03ca0386d0c8bf4dd99e4d41ba90b039de4bfffbd98253ab478934ac1d"
+  },
+  "rigType": "new local derived approximation; no original supplier rig recovered",
+  "limitations": [
+    "Four influences per vertex; anatomical capsule and regional weights, not manually painted production rig.",
+    "Finger poses remain static; no finger tracking or cloth/hair physics.",
+    "Skirt follows a conservative hips/thigh blend. Extreme squats, leg splits and crossed arms may intersect.",
+    "Procedural facial shapes approximate eyelid, jaw, smile and brow motion; not recovered supplier blendshapes.",
+    "No live physical-phone performance acceptance.",
+    "At full blink amplitude eyelid/eye-area stretching is visible; brow shapes also influence upper eyelids.",
+    "jawOpen morph includes lower teeth motion; do not duplicate the same opening on Jaw bone."
+  ],
+  "visualAcceptance": {
+    "offline": "18 rendered views inspected, including all 11 named expressions; passed with prototype limitations",
+    "offlineModelSha256": "511a250d06955ec6f6886e6a2bf1fc967fb8616eb4904375d72770413dbe68a5",
+    "offlineReport": "private work/qa-final/visual-review.json",
+    "browser": "separate integration review required",
+    "physicalPhone": "not tested"
+  }
+}
