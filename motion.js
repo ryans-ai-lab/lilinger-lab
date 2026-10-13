@@ -7,7 +7,7 @@ import {createRigDriver} from './retarget-rig.js';
 
 const $=s=>document.querySelector(s),host=$('#character'),video=$('#camera');
 let renderer,rig,model,spec,bounds,mode='body',loading=false,loadGeneration=0;
-let results=null,demo=null,demoStart=0,lastFrame=0,driverStatus;
+let results=null,demo=null,demoStart=0,lastFrame=0,driverStatus,resultCount=0,renderedFrames=0,lastDriverLabel='';
 const scene=new THREE.Scene();scene.background=new THREE.Color('#e7edf4');
 const camera=new THREE.PerspectiveCamera(31,1,.01,50);
 try{
@@ -33,15 +33,34 @@ function frameView(){
     const distance=Math.max(visibleHeight/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),size.x*.53/camera.aspect/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))*1.1;
     camera.position.set(target.x,target.y,target.z+distance);orbit.target.copy(target);
   }else{
-    const distance=Math.max(height/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),size.x/camera.aspect/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))*1.14;
-    if(camera.aspect<.95)center.x+=height*.095;
+    // Fit an extended human arm span as well as the original narrow A-pose.
+    const motionSpan=Math.max(size.x,height*1.22);
+    const distance=Math.max(height/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)),motionSpan/camera.aspect/2/Math.tan(THREE.MathUtils.degToRad(camera.fov/2)))*1.14;
+    if(camera.aspect<.95)center.x+=height*.17;
     center.y+=height*.01;camera.position.set(center.x,center.y,center.z+distance);orbit.target.copy(center);
   }
   orbit.minDistance=height*.3;orbit.maxDistance=height*5;orbit.update();
 }
 function resize(){const r=host.getBoundingClientRect();if(r.width<1||r.height<1)return;renderer.setSize(r.width,r.height);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();frameView()}
 new ResizeObserver(resize).observe(host);resize();
-function signal(id,active,text){const element=$(id);element.dataset.live=String(active);element.textContent=text}
+function signal(id,active,text){const element=$(id);if(element.dataset.live!==String(active))element.dataset.live=String(active);if(element.textContent!==text)element.textContent=text}
+function showDriverStatus(){
+  if(tracker.state.phase!=='live'||demo)return;
+  const warning=tracker.state.detail||'';
+  if((warning.includes('未提供可读取画面')&&(video.readyState<2||!video.videoWidth))||(warning.includes('帧回调未响应')&&!results)){
+    if($('#tracking-status').textContent!==warning)$('#tracking-status').textContent=warning;
+    $('#camera-badge').textContent='正在检查画面';lastDriverLabel='';return;
+  }
+  const live=driverStatus?.source==='camera',face=live&&driverStatus.faceDetected,body=live&&driverStatus.poseDetected;
+  const label=face||body?'正在跟随':'寻找你';
+  signal('#face-signal',face,face?'表情正在跟随':'未识别到脸');
+  signal('#body-signal',body,mode==='face'?'仅追踪表情':body?(driverStatus.fullBody?'全身正在跟随':'上半身正在跟随'):'未识别到身体');
+  if($('#camera-badge').textContent!==label)$('#camera-badge').textContent=label;
+  const detail=mode==='face'?(face?'表情正在同步，试着眨眼、微笑或转头。':'看向镜头，让脸完整进入画面。'):
+    body?(driverStatus.fullBody?'全身正在同步，试着抬手、侧身或屈膝。':'上半身正在同步。腿和脚进入画面后也会跟随。'):
+    face?'表情正在同步。让肩膀和手臂进入画面，就能带动身体。':'让脸、肩膀和手臂进入镜头。只拍到上半身也可以跟随。';
+  if(detail!==lastDriverLabel){lastDriverLabel=detail;$('#tracking-status').textContent=detail}
+}
 function clearSignals(){signal('#face-signal',false,'脸部待识别');signal('#body-signal',false,mode==='body'?'身体待识别':'仅追踪表情');$('#camera-badge').textContent='摄像头未开启'}
 function refreshControls(phase){
   const pending=phase==='requesting'||phase==='loading',live=phase==='live';
@@ -51,14 +70,14 @@ function refreshControls(phase){
   $('#calibrate').disabled=!live;
   document.querySelectorAll('[data-demo]').forEach(button=>button.disabled=!rig||live||pending);
 }
-const tracker=createMotionTracker({video,onResults(value){if(!host.isConnected)return;if(value.stopped){results=null;clearPoints();clearSignals();return}results=value;drawPoints(value)},onState(value){
+const tracker=createMotionTracker({video,onResults(value){if(!host.isConnected)return;if(value.stopped){results=null;clearPoints();clearSignals();return}results=value;resultCount++;drawPoints(value)},onState(value){
   if(!host.isConnected)return;
   const {phase,detail}=value;refreshControls(phase);
   if(phase==='live'){
     $('#camera-empty').hidden=true;$('#camera-badge').textContent='正在识别';
-    $('#tracking-status').textContent=mode==='face'?'看向镜头，试着眨眼、微笑或转头。':'向后站，让肩、手和膝盖进入画面。';
+    lastDriverLabel='';$('#tracking-status').textContent=mode==='face'?'看向镜头，试着眨眼、微笑或转头。':'让肩膀和手臂进入画面；上半身也可以跟随。';
   }else if(phase==='requesting'){$('#tracking-status').textContent='请允许此页面使用摄像头。'}
-  else if(phase==='loading'){$('#tracking-status').textContent='正在准备动作识别，首次载入需要一点时间。'}
+  else if(phase==='loading'){$('#camera-empty').hidden=video.videoWidth>0;$('#camera-badge').textContent='画面已开启 · 准备识别';$('#tracking-status').textContent='正在准备动作识别，首次载入需要一点时间。'}
   else if(phase==='error'){
     results=null;rig?.reset();clearSignals();$('#camera-empty').hidden=false;
     $('#tracking-status').textContent=detail||'摄像头没有开启，请检查权限后重试。';
@@ -82,20 +101,17 @@ function drawPoints(value){
     }
     for(const i of [11,12,13,14,15,16,23,24,25,26,27,28]){const p=points[i];if((p.visibility??1)<.5)continue;context.beginPath();context.arc(p.x*w,p.y*h,3,0,Math.PI*2);context.fill()}
   }
-  signal('#face-signal',value.faceDetected,value.faceDetected?'脸部已识别':'未识别到脸');
-  signal('#body-signal',mode==='body'&&value.poseDetected,mode==='face'?'仅追踪表情':value.poseDetected?'身体已识别':'未识别到身体');
-  $('#camera-badge').textContent=value.faceDetected||(mode==='body'&&value.poseDetected)?'跟随中':'寻找你';
 }
 function clearDemo(){demo=null;rig?.reset();$('#clear-demo').hidden=true;document.querySelectorAll('[data-demo]').forEach(button=>button.setAttribute('aria-pressed','false'));$('#demo-note').textContent='动作预览展示绑定效果，不会启动摄像头。'}
-$('#start').onclick=async()=>{clearDemo();results=null;await tracker.start()};
+$('#start').onclick=async()=>{clearDemo();results=null;resultCount=0;lastDriverLabel='';await tracker.start()};
 $('#stop').onclick=()=>tracker.stop('摄像头已停止。点击开启后继续。');
 $('#calibrate').onclick=()=>{const calibrated=rig?.calibrate();$('#tracking-status').textContent=calibrated?'已校准。保持自然表情，再试着做动作。':'还没有识别到脸，请看向镜头后再校准。'};
 $('#reset-view').onclick=frameView;
 document.querySelectorAll('[data-mode]').forEach(button=>button.onclick=()=>{
-  mode=button.dataset.mode;tracker.setMode(mode);clearDemo();results=null;clearPoints();
+  mode=button.dataset.mode;$('.stage').dataset.mode=mode;tracker.setMode(mode);clearDemo();results=null;clearPoints();
   document.querySelectorAll('[data-mode]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
-  $('#stage-hint').textContent=mode==='face'?'眨眼、微笑、转头。她会跟着你。':'抬手、侧身、屈膝。让全身进入镜头。';
-  if(tracker.state?.phase==='live')$('#tracking-status').textContent=mode==='face'?'看向镜头，试着眨眼、微笑或转头。':'向后站，让肩、手和膝盖进入画面。';
+  $('#stage-hint').textContent=mode==='face'?'眨眼、微笑、转头。她会跟着你。':'抬手、侧身、屈膝。上半身也可以跟随。';
+  lastDriverLabel='';if(tracker.state?.phase==='live')$('#tracking-status').textContent=mode==='face'?'看向镜头，试着眨眼、微笑或转头。':'让肩膀和手臂进入画面；上半身也可以跟随。';
   clearSignals();if(tracker.state.phase==='live')$('#camera-badge').textContent='正在识别';frameView();
 });
 document.querySelectorAll('[data-demo]').forEach(button=>button.onclick=()=>{
@@ -142,13 +158,14 @@ function frame(now){
     if(demo){rig.demo(demo,(now-demoStart)/1000)}
     else if(results){rig.update(results,dt)}
     driverStatus=rig.status;
+    showDriverStatus();
   }
-  orbit.update();renderer.render(scene,camera);
+  orbit.update();renderer.render(scene,camera);renderedFrames++;
 }
 requestAnimationFrame(frame);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearDemo();tracker.stop('已离开页面，摄像头已停止。回来后点击开启继续。')}});
 window.addEventListener('pagehide',()=>{tracker.stop('页面已离开，摄像头已停止。');clearDemo();results=null});
 window.addEventListener('beforeunload',()=>tracker.stop());
 // Read-only diagnostics distinguish real inference from the manual binding preview.
-window.lilingerMotion={get state(){return{ready:!!rig,mode,phase:tracker.state?.phase||'idle',source:demo?'demo':results?.source||'none',faceDetected:!!results?.faceDetected,poseDetected:!!results?.poseDetected,inferenceMs:results?.inferenceMs||null,backend:results?.backend||null,rig:driverStatus,bones:model?(()=>{let n=0;model.traverse(o=>{if(o.isBone)n++});return n})():0}},get canvas(){return renderer.domElement}};
+window.lilingerMotion={get state(){return{ready:!!rig,mode,phase:tracker.state?.phase||'idle',source:demo?'demo':driverStatus?.source||'none',faceDetected:!!driverStatus?.faceDetected,poseDetected:!!driverStatus?.poseDetected,resultCount,renderedFrames,pipeline:results?.pipeline||null,lastResultAgeMs:results?Math.round(performance.now()-(results.receivedAt||results.timestamp)):null,video:{width:video.videoWidth,height:video.videoHeight,readyState:video.readyState,paused:video.paused},inferenceMs:results?.inferenceMs||null,backend:results?.backend||null,rig:driverStatus,jointRotations:model?Object.fromEntries(['Head','LeftUpperArm','LeftLowerArm','RightUpperArm','RightLowerArm'].map(name=>[name,model.getObjectByName(name)?.quaternion.toArray()])):null,bones:model?(()=>{let n=0;model.traverse(o=>{if(o.isBone)n++});return n})():0}},get canvas(){return renderer.domElement}};
 loadModel();

@@ -9,13 +9,13 @@
   <meta name="theme-color" content="#152c48">
   <title>李灵儿 · 与你同步 | Ryan Lab</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="motion.css?v=20261013-3">
   <script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script>
 </head>
 <body>
   <header class="topbar"><a href="https://ryanlab.cn/" class="home">Ryan Lab</a><span>李灵儿动作实验</span><a href="https://ryanlab.cn/_lab/" class="return">返回项目</a></header>
   <main class="studio">
-    <section class="stage" aria-label="李灵儿实时动作实验">
+    <section class="stage" data-mode="body" aria-label="李灵儿实时动作实验">
       <div class="stage-title"><h1>李灵儿</h1><p>与你同步</p></div>
       <div id="character" class="character" role="img" aria-label="李灵儿三维角色，可拖动观察"><img id="poster" src="assets/images/character-preview.webp" alt="李灵儿" width="348" height="470"><p id="model-loading" role="status">正在准备角色…</p></div>
       <div class="stage-tools"><div class="mode-switch" role="group" aria-label="追踪范围"><button data-mode="face" aria-pressed="false">表情</button><button data-mode="body" aria-pressed="true">全身</button></div><button id="reset-view" title="恢复正面观察">正面</button></div>
@@ -25,14 +25,14 @@
         <div class="mirror-picture"><video id="camera" autoplay muted playsinline aria-label="镜像摄像头画面"></video><canvas id="landmarks" aria-hidden="true"></canvas><div id="camera-empty" class="camera-empty"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="20" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M10 49c0-12 8-20 18-20s18 8 18 20" stroke="currentColor" stroke-width="1.5"/></svg><p>用你的动作<br>带动她</p></div></div>
         <div class="tracking-signals"><span id="face-signal">脸部待识别</span><span id="body-signal">身体待识别</span></div>
       </aside>
-      <p id="stage-hint" class="stage-hint">抬手、侧身、屈膝。让全身进入镜头。</p>
+      <p id="stage-hint" class="stage-hint">抬手、侧身、屈膝。上半身也可以跟随。</p>
     </section>
     <section class="controls" aria-label="摄像头与动作控制">
       <div class="primary-controls"><button id="start" class="primary" disabled><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="m16 10 5-3v10l-5-3" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>开启摄像头</span></button><button id="stop" class="stop" hidden>停止摄像头</button><button id="calibrate" disabled>重新校准</button></div>
       <div class="status-area"><p id="tracking-status" role="status" aria-live="polite">授权摄像头后，用自己的表情和动作带动她。</p><p class="privacy">画面仅在本机处理，不上传、不录制。</p></div>
-      <details class="more"><summary>动作预览与使用说明</summary><div class="more-body"><div class="demo-buttons" role="group" aria-label="绑定演示"><button data-demo="wave" disabled>挥手</button><button data-demo="blink" disabled>眨眼</button><button data-demo="smile" disabled>微笑</button><button data-demo="jaw" disabled>张嘴</button><button id="clear-demo" hidden>结束预览</button></div><p id="demo-note">动作预览展示绑定效果，不会启动摄像头。</p><p>表情模式让脸靠近镜头；全身模式向后站，尽量让肩、手和膝盖进入画面。光线均匀、镜头稳定时效果更好。可拖动角色观察，点“正面”复位。</p><p>这是新建绑定的实验版本。裙装与关节的变形仍有局限，单个摄像头遇到遮挡时会丢失动作；目前不追踪每根手指。</p><div class="archive-links"><a href="archive.html">原角色与资料</a><a href="cards.html">历史卡片实验</a><a href="tracking-sources.html">开源组件与许可</a></div></div></details>
+      <details class="more"><summary>动作预览与使用说明</summary><div class="more-body"><div class="demo-buttons" role="group" aria-label="绑定演示"><button data-demo="wave" disabled>挥手</button><button data-demo="blink" disabled>眨眼</button><button data-demo="smile" disabled>微笑</button><button data-demo="jaw" disabled>张嘴</button><button id="clear-demo" hidden>结束预览</button></div><p id="demo-note">动作预览展示绑定效果，不会启动摄像头。</p><p>表情模式让脸靠近镜头；全身模式只拍到肩膀和手臂也能跟随，向后站可继续带动腿和脚。光线均匀、镜头稳定时效果更好。可拖动角色观察，点“正面”复位。</p><p>这是新建绑定的实验版本。裙装与关节的变形仍有局限，单个摄像头遇到遮挡时会丢失动作；目前不追踪每根手指。</p><div class="archive-links"><a href="archive.html">原角色与资料</a><a href="cards.html">历史卡片实验</a><a href="tracking-sources.html">开源组件与许可</a></div></div></details>
     </section>
   </main>
-  <script type="module" src="motion.js"></script>
+  <script type="module" src="motion.js?v=20261013-3"></script>
 </body>
 </html>

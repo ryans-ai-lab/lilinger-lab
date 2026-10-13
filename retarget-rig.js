@@ -23,11 +23,15 @@ function bounded(q, limits) {
   return new Quaternion().setFromEuler(e);
 }
 
-function torsoFrame(points, left, right, upperA = 11, upperB = 12) {
-  if (![left, right, upperA, upperB, 23, 24].every(i => observed(points[i]))) return null;
+function torsoFrame(points, left, right, {allowUpperBody = false} = {}) {
+  if (![left, right].every(i => observed(points[i]))) return null;
   const x = toModel(points[left]).sub(toModel(points[right]));
-  const y = toModel(points[upperA]).add(toModel(points[upperB])).multiplyScalar(.5)
-    .sub(toModel(points[23]).add(toModel(points[24])).multiplyScalar(.5));
+  const fullTorso = [11, 12, 23, 24].every(i => observed(points[i]));
+  if (!fullTorso && !allowUpperBody) return null;
+  // A phone often sees shoulders and arms while hips are outside the image.
+  // Use the observed shoulder axis for yaw/roll, with gravity as the up axis.
+  const y = fullTorso ? toModel(points[11]).add(toModel(points[12])).multiplyScalar(.5)
+    .sub(toModel(points[23]).add(toModel(points[24])).multiplyScalar(.5)) : new Vector3(0, 1, 0);
   if (x.lengthSq() < 1e-6 || y.lengthSq() < 1e-6) return null;
   x.normalize(); y.addScaledVector(x, -y.dot(x)).normalize();
   const z = new Vector3().crossVectors(x, y).normalize();
@@ -36,7 +40,7 @@ function torsoFrame(points, left, right, upperA = 11, upperB = 12) {
   return new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, y, z));
 }
 
-export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeoutMs = 450, expressionGain = 1} = {}) {
+export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeoutMs = 650, expressionGain = 1.15} = {}) {
   if (!root?.traverse) throw new TypeError('A loaded glTF scene is required');
   const bones = new Map(), expressions = new Map();
   root.updateMatrixWorld(true);
@@ -83,15 +87,20 @@ export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeou
     const now = performance.now();
     if (frame && frame !== previousFrame) { previousFrame = frame; lastArrival = now; }
     const frameAge = Number.isFinite(frame?.timestamp) ? now - frame.timestamp : Infinity;
-    const fresh = frame?.source === 'camera' && !frame.stopped && frameAge >= -100 && frameAge <= lossTimeoutMs && now - lastArrival <= lossTimeoutMs;
+    // Capture timestamps precede inference. A freshly delivered, slower CPU
+    // result must not be discarded simply because inference took >450 ms.
+    const budget = Math.min(1500, Math.max(lossTimeoutMs, (frame?.inferenceMs || 0) * 2 + 150));
+    const arrivalAge = now - (Number.isFinite(frame?.receivedAt) ? frame.receivedAt : lastArrival);
+    const fresh = frame?.source === 'camera' && !frame.stopped && frameAge >= -100 && frameAge <= budget && arrivalAge >= -100 && arrivalAge <= budget && now - lastArrival <= budget;
     const face = fresh && frame.faceDetected !== false && frame.face?.faceLandmarks?.[0]?.length ? frame.face : null;
     const points = fresh && frame.poseDetected !== false ? frame.pose?.worldLandmarks?.[0] : null;
-    const hasBody = !!points && [11, 12, 23, 24].every(i => observed(points[i]));
+    const hasBody = !!points && LIMBS.some(([, , from, to]) => observed(points[from]) && observed(points[to]));
+    const fullBody = !!points && [11, 12, 23, 24, 25, 26, 27, 28].every(i => observed(points[i]));
     const alpha = 1 - Math.exp(-clamp(Number.isFinite(dt) ? dt : 1 / 60, 0, .1) / Math.max(.01, smoothing));
     targetsAtRest();
     let driven = 0;
     const hipsQ = hasBody ? torsoFrame(points, 23, 24) : null;
-    const chestQ = hasBody ? torsoFrame(points, 11, 12) : null;
+    const chestQ = hasBody ? torsoFrame(points, 11, 12, {allowUpperBody: true}) : null;
     if (hipsQ && setWorldTarget('Hips', bounded(hipsQ, [.35, .85, .4]))) driven++;
     // Apply parents first; desired limb orientations are in model space.
     for (const name of ['Hips', 'Spine', 'Chest']) if (bones.has(name)) smoothBone(bones.get(name), alpha);
@@ -101,7 +110,7 @@ export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeou
     for (const [name, , from, to] of LIMBS) {
       const bone = bones.get(name), restDir = restDirections.get(name);
       if (!bone) continue;
-      if (hasBody && restDir && observed(points[from]) && observed(points[to])) {
+      if (points && restDir && observed(points[from]) && observed(points[to])) {
         const targetDir = toModel(points[to]).sub(toModel(points[from]));
         if (targetDir.lengthSq() > 1e-6) {
           const delta = new Quaternion().setFromUnitVectors(restDir, targetDir.normalize());
@@ -133,7 +142,7 @@ export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeou
       const before = Number.isFinite(node.morphTargetInfluences[index]) ? node.morphTargetInfluences[index] : 0;
       node.morphTargetInfluences[index] = before + ((faceTargets.get(name) || 0) - before) * alpha;
     }
-    status = {...status, source: fresh ? 'camera' : 'idle', faceDetected: !!face, poseDetected: hasBody, drivenBones: driven};
+    status = {...status, source: fresh ? 'camera' : 'idle', faceDetected: !!face, poseDetected: hasBody, fullBody, drivenBones: driven, frameAgeMs: Number.isFinite(frameAge) ? Math.round(frameAge) : null};
     return {...status};
   }
   function reset() {
@@ -141,7 +150,7 @@ export function createRigDriver(root, rigSpec = {}, {smoothing = .10, lossTimeou
     for (const bone of bones.values()) bone.node.quaternion.copy(bone.rest);
     for (const entries of expressions.values()) for (const {node, index} of entries) node.morphTargetInfluences[index] = 0;
     root.updateMatrixWorld(true); previousFrame = null; lastArrival = -Infinity; latestFace = null;
-    status = {...status, source: 'idle', faceDetected: false, poseDetected: false, drivenBones: 0};
+    status = {...status, source: 'idle', faceDetected: false, poseDetected: false, fullBody: false, drivenBones: 0};
   }
   return {
     update, reset,

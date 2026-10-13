@@ -1,13 +1,15 @@
 {
   "version": 1,
-  "rigVersion": "2026-10-13.1",
+  "rigVersion": "2026-10-13.2",
   "model": {
-    "url": "./models/lilinger-motion.glb",
+    "url": "./models/lilinger-motion.glb?v=f239496d",
     "file": "lilinger-motion.glb",
-    "bytes": 10242844,
-    "sha256": "511a250d06955ec6f6886e6a2bf1fc967fb8616eb4904375d72770413dbe68a5",
+    "bytes": 10257420,
+    "sha256": "f239496db791ba338ffd6709356669896ef1244e4e2abc5bf363160e12798a9f",
     "triangles": 1084123,
-    "vertices": 1124100
+    "vertices": 1124100,
+    "skinnedVertices": 95694,
+    "rigidVertices": 1028406
   },
   "coordinateSystem": {
     "unit": "meter",
@@ -594,12 +596,6 @@
       "browOuterUpRight",
       "mouthFunnel"
     ],
-    "eyeLeftShape": [
-      "eyeBlinkLeft"
-    ],
-    "eyeRightShape": [
-      "eyeBlinkRight"
-    ],
     "lash_meshShape": [
       "eyeBlinkLeft",
       "eyeBlinkRight"
@@ -642,15 +638,45 @@
     "Finger poses remain static; no finger tracking or cloth/hair physics.",
     "Skirt follows a conservative hips/thigh blend. Extreme squats, leg splits and crossed arms may intersect.",
     "Procedural facial shapes approximate eyelid, jaw, smile and brow motion; not recovered supplier blendshapes.",
-    "No live physical-phone performance acceptance.",
-    "At full blink amplitude eyelid/eye-area stretching is visible; brow shapes also influence upper eyelids.",
-    "jawOpen morph includes lower teeth motion; do not duplicate the same opening on Jaw bone."
+    "No live physical-phone performance acceptance."
   ],
-  "visualAcceptance": {
-    "offline": "18 rendered views inspected, including all 11 named expressions; passed with prototype limitations",
-    "offlineModelSha256": "511a250d06955ec6f6886e6a2bf1fc967fb8616eb4904375d72770413dbe68a5",
-    "offlineReport": "private work/qa-final/visual-review.json",
-    "browser": "separate integration review required",
-    "physicalPhone": "not tested"
-  }
+  "rigidAttachments": [
+    {
+      "mesh": "earringShape",
+      "joint": "Head"
+    },
+    {
+      "mesh": "eyeLeftShape",
+      "joint": "LeftEye"
+    },
+    {
+      "mesh": "eyeRightShape",
+      "joint": "RightEye"
+    },
+    {
+      "mesh": "head_accesoriesShape",
+      "joint": "Head"
+    },
+    {
+      "mesh": "armwrapShape",
+      "joint": "LeftUpperArm"
+    },
+    {
+      "mesh": "braceletShape",
+      "joint": "LeftLowerArm"
+    },
+    {
+      "mesh": "hair_meshShape",
+      "joint": "Head"
+    },
+    {
+      "mesh": "lash_meshShape",
+      "joint": "Head"
+    },
+    {
+      "mesh": "eyebrow_meshShape",
+      "joint": "Head"
+    }
+  ],
+  "visualAcceptance": "Local rendered blink, jaw, head turn and raised arms reviewed for this prototype release; user camera and physical phone acceptance still pending."
 }
