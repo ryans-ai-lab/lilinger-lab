@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-d7T2aBo4DTPWlvAx1Pdbor2DTF+ia1fyj5H0nvZ/x+o='; style-src 'self'; connect-src 'self' blob:; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-d7T2aBo4DTPWlvAx1Pdbor2DTF+ia1fyj5H0nvZ/x+o=' 'sha256-d2kqKPE8dTB7mqdqmOnCOjRgOZei/QlK9Ey8CBFlAlU='; style-src 'self'; connect-src 'self' blob:; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="李灵儿摄像头动作实验：用自己的表情和动作带动角色，画面在本机处理。">
   <meta name="theme-color" content="#152c48">
@@ -19,6 +19,7 @@
       <div class="stage-title"><h1>李灵儿</h1><p>与你同步</p></div>
       <div id="character" class="character" role="img" aria-label="李灵儿三维角色，可拖动观察"><img id="poster" src="assets/images/character-preview.webp" alt="李灵儿" width="348" height="470"><p id="model-loading" role="status">正在准备角色…</p></div>
       <div class="stage-tools"><div class="mode-switch" role="group" aria-label="追踪范围"><button data-mode="face" aria-pressed="false">表情</button><button data-mode="body" aria-pressed="true">全身</button></div><button id="reset-view" title="恢复正面观察">正面</button></div>
+      <div id="app-load-error" class="model-error" role="alert" hidden><p>动作程序未能完整载入，请重新载入页面后再试。</p><button id="reload-motion" type="button">重新载入页面</button></div>
       <div id="model-error" class="model-error" hidden><p>角色没有完整载入。</p><button id="retry-model">重新载入</button></div>
       <aside class="mirror" aria-label="摄像头预览">
         <div class="mirror-head"><span>你的画面</span><span id="camera-badge">摄像头未开启</span></div>
@@ -33,6 +34,31 @@
       <details class="more"><summary>动作预览与使用说明</summary><div class="more-body"><div class="demo-buttons" role="group" aria-label="绑定演示"><button data-demo="wave" disabled>挥手</button><button data-demo="blink" disabled>眨眼</button><button data-demo="smile" disabled>微笑</button><button data-demo="jaw" disabled>张嘴</button><button id="clear-demo" hidden>结束预览</button></div><p id="demo-note">动作预览展示绑定效果，不会启动摄像头。</p><p>表情模式让脸靠近镜头；全身模式只拍到肩膀和手臂也能跟随，向后站可继续带动腿和脚。光线均匀、镜头稳定时效果更好。可拖动角色观察，点“正面”复位。</p><p>这是新建绑定的实验版本。裙装与关节的变形仍有局限，单个摄像头遇到遮挡时会丢失动作；目前不追踪每根手指。</p><div class="archive-links"><a href="archive.html">原角色与资料</a><a href="cards.html">历史卡片实验</a><a href="tracking-sources.html">开源组件与许可</a></div></div></details>
     </section>
   </main>
-  <script type="module" src="motion.js?v=20261013-3"></script>
+  <script id="motion-entry" type="module" src="motion.js?v=20261013-3"></script>
+  <script>
+  (() => {
+    const entry = document.getElementById('motion-entry');
+    const notice = document.getElementById('app-load-error');
+    let timer;
+    const started = () => {
+      if (!window.lilingerMotion) return false;
+      clearTimeout(timer);
+      notice.hidden = true;
+      return true;
+    };
+    const failed = () => { if (!started()) notice.hidden = false; };
+    entry.addEventListener('error', failed);
+    entry.addEventListener('load', started);
+    document.addEventListener('lilinger:motion-ready', started);
+    document.getElementById('reload-motion').addEventListener('click', () => location.reload());
+    // A failed or empty module must not leave a disabled page without an exit.
+    timer = setTimeout(failed, 20000);
+    window.addEventListener('load', () => {
+      clearTimeout(timer);
+      if (!started()) timer = setTimeout(failed, 8000);
+    }, {once: true});
+    window.addEventListener('pagehide', () => clearTimeout(timer), {once: true});
+  })();
+  </script>
 </body>
 </html>
