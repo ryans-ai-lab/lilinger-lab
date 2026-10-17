@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-d7T2aBo4DTPWlvAx1Pdbor2DTF+ia1fyj5H0nvZ/x+o=' 'sha256-d2kqKPE8dTB7mqdqmOnCOjRgOZei/QlK9Ey8CBFlAlU='; style-src 'self'; connect-src 'self' blob:; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="李灵儿摄像头动作实验：用自己的表情和动作带动角色，画面在本机处理。">
+  <meta name="theme-color" content="#152c48">
+  <title>李灵儿 · 渲染比较（本地候选） | Ryan Lab</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="render-review.css?v=review-2-fix1">
+  <script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script>
+</head>
+<body>
+  <header class="topbar"><a href="https://ryanlab.cn/" class="home">Ryan Lab</a><span>李灵儿 · 本地渲染候选</span><a href="review.html" class="return">返回渲染审阅</a></header>
+  <main class="studio">
+    <section class="stage" data-mode="body" aria-label="李灵儿实时动作实验">
+      <div class="stage-title"><h1>李灵儿</h1><p>与你同步</p></div>
+      <div id="character" class="character" role="img" aria-label="李灵儿三维角色，可拖动观察"><img id="poster" src="assets/images/character-preview.webp" alt="李灵儿" width="348" height="470"><p id="model-loading" role="status">正在准备角色…</p></div>
+      <div class="stage-tools"><div class="mode-switch" role="group" aria-label="追踪范围"><button data-mode="face" aria-pressed="false">表情</button><button data-mode="body" aria-pressed="true">全身</button></div><button id="reset-view" title="恢复正面观察">正面</button></div>
+      <div id="app-load-error" class="model-error" role="alert" hidden><p>动作程序未能完整载入，请重新载入页面后再试。</p><button id="reload-motion" type="button">重新载入页面</button></div>
+      <div id="model-error" class="model-error" hidden><p>角色没有完整载入。</p><button id="retry-model">重新载入</button></div>
+      <aside class="mirror" aria-label="摄像头预览">
+        <div class="mirror-head"><span>你的画面</span><span id="camera-badge">摄像头未开启</span></div>
+        <div class="mirror-picture"><video id="camera" autoplay muted playsinline aria-label="镜像摄像头画面"></video><canvas id="landmarks" aria-hidden="true"></canvas><div id="camera-empty" class="camera-empty"><svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="20" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M10 49c0-12 8-20 18-20s18 8 18 20" stroke="currentColor" stroke-width="1.5"/></svg><p>用你的动作<br>带动她</p></div></div>
+        <div class="tracking-signals"><span id="face-signal">脸部待识别</span><span id="body-signal">身体待识别</span></div>
+      </aside>
+      <p id="stage-hint" class="stage-hint">抬手、侧身、屈膝。上半身也可以跟随。</p>
+    </section>
+    <section class="render-controls" aria-label="人物渲染比较"><div class="render-options" role="group" aria-label="渲染方式"><button data-render-look="baseline" aria-pressed="true">原渲染</button><button data-render-look="natural" aria-pressed="false">柔光质感</button><button data-render-look="illustrated" aria-pressed="false">插画层次</button></div><p id="render-look-note" role="status">已发布版本的材质与灯光。</p><p class="render-review-note">同一模型、镜头与动作。默认保留原渲染；展开动作预览，定格后切换比较。</p></section>
+    <section class="controls" aria-label="摄像头与动作控制">
+      <div class="primary-controls"><button id="start" class="primary" disabled><svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="3" stroke="currentColor" stroke-width="1.7"/><path d="m16 10 5-3v10l-5-3" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>开启摄像头</span></button><button id="stop" class="stop" hidden>停止摄像头</button><button id="calibrate" disabled>重新校准</button></div>
+      <div class="status-area"><p id="tracking-status" role="status" aria-live="polite">授权摄像头后，用自己的表情和动作带动她。</p><p class="privacy">画面仅在本机处理，不上传、不录制。</p></div>
+      <details class="more"><summary>动作预览与使用说明</summary><div class="more-body"><div class="demo-buttons" role="group" aria-label="绑定演示"><button data-demo="wave" disabled>挥手</button><button data-demo="blink" disabled>眨眼</button><button data-demo="smile" disabled>微笑</button><button data-demo="jaw" disabled>张嘴</button><button id="hold-demo" aria-pressed="false" disabled>定格预览</button><button id="clear-demo" hidden>结束预览</button></div><p id="demo-note">动作预览展示绑定效果，不会启动摄像头。</p><p>表情模式让脸靠近镜头；全身模式只拍到肩膀和手臂也能跟随，向后站可继续带动腿和脚。光线均匀、镜头稳定时效果更好。可拖动角色观察，点“正面”复位。</p><p>这是新建绑定的实验版本。裙装与关节的变形仍有局限，单个摄像头遇到遮挡时会丢失动作；目前不追踪每根手指。</p><div class="archive-links"><a href="archive.html">原角色与资料</a><a href="cards.html">历史卡片实验</a><a href="tracking-sources.html">开源组件与许可</a></div></div></details>
+    </section>
+    <details id="render-qa" class="render-qa"><summary>本地验收状态</summary><p>仅读取当前页面状态；不请求摄像头或网络。资源 SHA 以隔离目录 manifest 为准。</p><button id="refresh-render-qa" type="button">刷新状态</button><output id="render-qa-output" aria-live="off">等待展开后读取。</output></details>
+  </main>
+  <script id="motion-entry" type="module" src="render-review.js?v=review-2-fix1"></script>
+  <script>
+  (() => {
+    const entry = document.getElementById('motion-entry');
+    const notice = document.getElementById('app-load-error');
+    let timer;
+    const started = () => {
+      if (!window.lilingerMotion) return false;
+      clearTimeout(timer);
+      notice.hidden = true;
+      return true;
+    };
+    const failed = () => { if (!started()) notice.hidden = false; };
+    entry.addEventListener('error', failed);
+    entry.addEventListener('load', started);
+    document.addEventListener('lilinger:motion-ready', started);
+    document.getElementById('reload-motion').addEventListener('click', () => location.reload());
+    // A failed or empty module must not leave a disabled page without an exit.
+    timer = setTimeout(failed, 20000);
+    window.addEventListener('load', () => {
+      clearTimeout(timer);
+      if (!started()) timer = setTimeout(failed, 8000);
+    }, {once: true});
+    window.addEventListener('pagehide', () => clearTimeout(timer), {once: true});
+  })();
+  </script>
+</body>
+</html>

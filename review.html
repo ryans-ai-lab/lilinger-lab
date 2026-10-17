@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="robots" content="noindex,nofollow">
+  <title>李灵儿 · 人物渲染审阅</title>
+  <link rel="icon" href="assets/images/character-preview.webp" type="image/webp">
+  <link rel="stylesheet" href="review.css?v=review-2-fix1">
+</head>
+<body>
+  <header><a href="motion.html">李灵儿</a><span>人物渲染 · 独立候选</span><a href="https://ryanlab.cn/lilinger/" rel="noreferrer">查看现有线上版 ↗</a></header>
+  <main>
+    <section class="intro"><p class="eyebrow">同一角色 · 同一模型 · 同一镜头</p><h1>换一种光，<br>看见她的层次。</h1><p>原渲染、柔光质感与插画层次，保留李灵儿的脸、服装和动作。先比较，再决定。</p><div class="actions"><a class="primary" id="live-link" href="render-review.html?look=baseline">进入三维比较 →</a><a href="motion.html">打开原动捕入口</a></div><p class="small">独立审阅候选，尚未选定或替换线上默认。进入页面不会自动开启摄像头。</p></section>
+    <section class="review-section" aria-labelledby="compare-title">
+      <div class="section-head"><h2 id="compare-title">先看同镜头对照</h2><span>2026-10-17 已验静帧</span></div>
+      <div class="look-tabs" role="group" aria-label="查看渲染版本"><button data-review-look="baseline" aria-pressed="true">原渲染</button><button data-review-look="natural" aria-pressed="false">柔光质感</button><button data-review-look="illustrated" aria-pressed="false">插画层次</button></div>
+      <p id="look-description" role="status">已发布版本的材质与灯光，作为比较基线。</p>
+      <div class="comparison" id="comparison"><img id="candidate-image" src="review-assets/baseline.jpg" alt="原渲染，同镜头实际截图" width="1440" height="1000"><div class="comparison-original" id="original-layer"><img src="review-assets/baseline.jpg" alt="左侧原渲染比较基线" width="1440" height="1000"></div><div class="divider" id="divider" aria-hidden="true"><span id="divider-handle">↔</span></div></div>
+      <div class="split-control"><label for="split">拖动图上把手或下方滑杆比较</label><input id="split" type="range" min="0" max="100" step="1" value="50" aria-label="原渲染占比"><output id="split-value" for="split">原渲染 50%</output></div>
+      <p class="small" id="comparison-caption">左侧原渲染 · 右侧原渲染。静帧来自上一轮真实浏览器验收，不是本轮重新渲染。</p>
+      <details class="full-image"><summary>查看当前版本完整截图</summary><img id="full-image" src="review-assets/baseline.jpg" alt="原渲染完整截图" width="1440" height="1000" loading="lazy"></details>
+    </section>
+    <section class="review-section" aria-labelledby="live-title"><h2 id="live-title">再用同一个动作检查</h2><ol><li>进入三维比较，选择“表情”或“全身”。</li><li>展开“动作预览与使用说明”，选择挥手或微笑，然后“定格预览”。</li><li>切换三个渲染按钮，比较脸颊、头发、金饰和衣料；动作与镜头应保持。</li></ol><a class="text-link" href="render-review.html?look=baseline">从原渲染开始比较 →</a><p class="small">摄像头流程保留，只有点击“开启摄像头”才会请求使用。本轮不采集新的人脸或动作。</p></section>
+    <section class="review-section" aria-labelledby="choice-title"><h2 id="choice-title">留下这次审阅意见</h2><p>临时意见只用于这次审阅，不会写入项目；导出文件由你保存，不会发送或发布。</p><label for="preference">当前偏好</label><select id="preference"><option value="">尚未选择</option><option value="baseline">保留原渲染</option><option value="natural">继续柔光质感</option><option value="illustrated">继续插画层次</option></select><label for="review-note">还希望调整什么？</label><textarea id="review-note" rows="3" maxlength="1200" placeholder="例如：白衣层次、发梢颗粒、脸部明暗……"></textarea><div class="actions"><button id="export-review">导出审阅意见</button><button id="reset-review">清除临时意见</button></div><p id="review-message" role="status" class="small"></p></section>
+    <section class="review-section evidence" aria-labelledby="evidence-title"><h2 id="evidence-title">哪些已经核验</h2><dl><div><dt>上一轮真实画面</dt><dd>三路同模型与镜头、挥手及微笑定格，电脑与手机竖横视口已有记录。</dd></div><div><dt>本轮新增</dt><dd>修复版已完成桌面与三种手机视口的Chrome复测；真人摄像头和实体iPhone Safari仍未验证。</dd></div><div><dt>仍未验证</dt><dd>真人摄像头、实体 iPhone Safari、设备帧率、耗电及长时稳定性。</dd></div></dl><p class="small">柔光可继续完善，白衣仍偏平，发际与发梢颗粒仍在。插画明暗较硬，是风格候选。截图存在不代表已被采用。</p></section>
+  </main><footer>保留角色辨识 · 保留原模式 · 由审阅决定下一步</footer>
+  <script type="module" src="review.js?v=review-2-fix1"></script>
+</body>
+</html>
